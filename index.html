@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/logo.png" type="image/x-icon">
+    <title>Pollos Rubén</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <!-- AÑADIDO: LIBRERÍA DE ICONOS FONT AWESOME -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div id="login-screen" class="login-screen">
+        <div class="login-box">
+            <h1>Bienvenido a Pollos Rubén</h1>
+            <p>Por favor, inicia sesión para continuar.</p>
+            <form id="login-form">
+                <div class="form-group"><label for="username">Usuario (anota: cliente)</label><input type="text" id="username" required></div>
+                <div class="form-group"><label for="password">Contraseña (anota: 1234)</label><input type="password" id="password" required></div>
+                <p id="login-error" class="login-error-message">Usuario o contraseña incorrectos.</p>
+                <button type="submit" class="cta-button">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="app-container" class="app-container hidden">
+        <header class="main-header">
+            <nav class="main-nav">
+                <a href="#" class="nav-link active" data-page="inicio">Inicio</a>
+                <a href="#" class="nav-link" data-page="menu">Menú</a>
+                <a href="#" class="nav-link" data-page="pedido"><span class="cart-icon">🛒</span> <span id="cart-counter">0</span></a>
+                <a href="#" class="nav-link" data-page="reservas">Reservas</a>
+            </nav>
+            <div class="user-dropdown">
+                <button id="user-menu-btn" class="user-menu-btn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" /></svg></button>
+                <div id="user-dropdown-content" class="dropdown-content hidden"><span id="welcome-user">Hola, Cliente</span><a href="#" id="logout-btn">Cerrar Sesión</a></div>
+            </div>
+        </header>
+        
+        <div class="title-bar">
+            <div class="marquee-container"><span>Pollos Rubén  &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; El Mejor Sabor &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; Encuéntranos en Pailón &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; Te esperamos! &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; </span></div>
+        </div>
+
+        <main class="main-content">
+            <section id="inicio" class="page active">
+                <div class="hero"><h2 >El Sabor que te Mueve</h2><br><br>
+                <p>Ingredientes frescos, recetas explosivas y la velocidad que necesitas.</p><br><a href="#" class="cta-button" data-page="menu">Ver el Menú Ahora</a></div>
+                <div id="chefs" class="page-section"><h2>Nuestros Maestros del Sabor</h2><div class="card-container"><div class="card"><img src="images/erlinda.png" alt="Chef 1" class="card-img"><div class="card-body"><h3 class="card-title">Chef: Erlinda Morales</h3><p class="card-text">Especialista en la preparación de hamburguesas y lomito. Sus papas crujientes tienen un sabor único que complementa perfectamente cada plato. Con años de experiencia en la cocina, la Chef Erlinda combina ingredientes frescos y técnicas tradicionales para ofrecer sabores inolvidables en cada bocado. </p></div></div><div class="card"><img src="images/alvaro.png" alt="Chef 2" class="card-img"><div class="card-body"><h3 class="card-title">Chef: Álvaro Chuve </h3><p class="card-text">Rey del pollo y de las "Papas Cargadas". Con su pasión por la cocina, el Chef Álvaro crea platos irresistibles que combinan sabores tradicionales y modernos. Además, ofrece refrescos como limonada, chicha morada y mocochinchi, garantizando una experiencia completa y deliciosa.</p></div></div></div></div>
+                <div id="ubicacion" class="page-section"><h2>Encuéntranos en Pailón Aquí</h2><div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3901.954032592398!2d-62.7121649!3d-17.6715429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93f20565990dc9a7%3A0xafe586c16aace009!2sCasa%20De%20Ruben%20Condori%20Lazo!5e0!3m2!1ses!2spe!4v1620929973801!5m2!1ses!2spe" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe></div></div>
+
+                <footer class="pie-de-pagina">
+                    <p>&copy; 2025 Pollos Rubén. Todos los derechos reservados.</p>
+                    <div class="social-icons">
+                       <a href="https://wa.me/74420831?text=Hola,%20quiero%20más%20información%20sobre%20Pollos%20Rubén." target="_blank" aria-label="WhatsApp"> <i class="fa-brands fa-whatsapp"></i></a>                        
+                       <a href="https://www.facebook.com/ruben.condorilazo" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="https://www.tiktok.com/@rubencondorilazo" target="_blank" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </footer>
+                
+            </section>
+            <section id="menu" class="page"><h2 >Nuestro Menú Irresistible</h2><div class="menu-controls"><input type="search" id="search-input" placeholder="Buscar producto..."><select id="category-filter"><option value="all">Todas las categorías</option><option value="hamburguesas">Hamburguesas</option><option value="lomitos">Lomitos</option><option value="pollos">Pollos</option><option value="sodas">Sodas</option><option value="refrescos">Refrescos</option></select></div><div id="menu-grid" class="card-container"></div></section>
+            <section id="pedido" class="page"><h2 >Resumen de tu Pedido</h2><div id="cart-container"><div id="cart-items-list"></div><div id="cart-total-section"><p>Total: <span id="cart-total-price">Bs 0.00</span></p><button id="checkout-btn" class="cta-button">Proceder al Pago</button></div></div></section>
+            <section id="reservas" class="page"><h2 >Reserva tu Mesa</h2><form id="reservation-form" class="form-container"><div class="form-group"><label for="name">Nombre Completo</label><input type="text" id="name" name="name" required></div><div class="form-group"><label for="email">Correo Electrónico</label><input type="email" id="email" name="email" required></div><div class="form-group"><label for="date">Fecha</label><input type="date" id="date" name="date" required></div><div class="form-group"><label for="time">Hora</label><input type="time" id="time" name="time" required></div><div class="form-group"><label for="guests">Número de Personas</label><input type="number" id="guests" name="guests" min="1" max="10" value="2" required></div><button type="submit" class="cta-button">Confirmar Reserva</button></form></section>
+        </main>
+    </div>
+
+    <div id="success-modal" class="modal-backdrop"><div class="modal-content"><button id="close-success-modal-btn" class="modal-close">&times;</button><h3 id="success-modal-title">¡Éxito!</h3><p id="success-modal-message">Tu operación se completó.</p><button id="generate-pdf-btn" class="cta-button">Imprimir PDF</button></div></div>
+    <div id="notification" class="notification"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="scripts.js"></script>
+</body>
+</html>
