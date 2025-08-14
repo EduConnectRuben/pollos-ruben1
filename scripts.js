@@ -1,15 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // ===================================================================
+    // 1. ESTADO GLOBAL DE LA APLICACIÓN
+    // ===================================================================
+    
+    // Lista de productos inicial. El stock actual se gestionará en localStorage.
     const initialMenuItems = [
-        {"id":1,"name":"Hamburguesa Simple","category":"hamburguesas","price":35.00,"description":"Carne jugosa, lechuga fresca, tomate y nuestras salsas clásicas.","image":"images/hamb-simple.png","stock":20},
-        {"id":2,"name":"Hamburguesa Doble","category":"hamburguesas","price":45.00,"description":"Doble porción de carne y queso para los verdaderos amantes de las burgers.","image":"images/hamb-doble.png","stock":15},
-        {"id":13,"name":"Hamburguesa Especial","category":"hamburguesas","price":55.00,"description":"Con tocino crujiente, aros de cebolla y nuestra salsa barbacoa secreta.","image":"images/hamb-especial.png","stock":10},
-        {"id":3,"name":"Lomito Simple","category":"lomitos","price":40.00,"description":"Tierno lomito de res a la plancha, con chimichurri, lechuga y tomate.","image":"images/lomito-simple.png","stock":10},
-        {"id":4,"name":"Lomito Doble","category":"lomitos","price":50.00,"description":"El doble de sabor con extra lomito y huevo frito.","image":"images/lomito-doble.png","stock":8},
-        {"id":15,"name":"Lomito Especial","category":"lomitos","price":60.00,"description":"El rey de la casa: lomito, doble queso, tocino, huevo y pimientos.","image":"images/lomito-especial.png","stock":7},
-        {"id":6,"name":"Pollo Económico","category":"pollos","price":25.00,"description":"Una presa de nuestro delicioso pollo con una porción de papas fritas.","image":"images/pollo-eco.png","stock":15},
-        {"id":5,"name":"Pollo Cuarto","category":"pollos","price":35.00,"description":"Jugoso cuarto de pollo marinado a las brasas, acompañado de papas y ensalada.","image":"images/pollo-cuarto.png","stock":12},
-        {"id":16,"name":"Pollo Especial","category":"pollos","price":45.00,"description":"Un jugoso cuarto de pollo con chorizo, papas fritas especiales y doble ensalada.","image":"images/pollo-especial.png","stock":10},
+        {"id":1,"name":"Hamburguesa Simple","category":"hamburguesas","price":15.00,"description":"Carne jugosa, lechuga fresca, tomate y nuestras salsas clásicas.","image":"images/hamb simple.png","stock":20},
+        {"id":2,"name":"Hamburguesa Doble","category":"hamburguesas","price":25.00,"description":"Doble porción de carne y queso para los verdaderos amantes de las burgers.","image":"images/hamb doble.png","stock":15},
+        {"id":13,"name":"Hamburguesa Especial","category":"hamburguesas","price":30.00,"description":"Con tocino crujiente, aros de cebolla y nuestra salsa barbacoa secreta.","image":"images/hamb especial.png","stock":10},
+        {"id":3,"name":"Lomito Simple","category":"lomitos","price":20.00,"description":"Tierno lomito de res a la plancha, con chimichurri, lechuga y tomate.","image":"images/lomito simple.png","stock":10},
+        {"id":4,"name":"Lomito Doble","category":"lomitos","price":30.00,"description":"El doble de sabor con extra lomito y huevo frito.","image":"images/lomito doble.png","stock":8},
+        {"id":15,"name":"Lomito Especial","category":"lomitos","price":35.00,"description":"El rey de la casa: lomito, doble queso, tocino, huevo y pimientos.","image":"images/lomito especial.png","stock":7},
+        {"id":6,"name":"Pollo Económico","category":"pollos","price":15.00,"description":"Una presa de nuestro delicioso pollo con una porción de papas fritas.","image":"images/pollo eco.png","stock":15},
+        {"id":5,"name":"Pollo Cuarto","category":"pollos","price":20.00,"description":"Jugoso cuarto de pollo marinado a las brasas, acompañado de papas y ensalada.","image":"images/pollo cuarto.png","stock":12},
+        {"id":16,"name":"Pollo Especial","category":"pollos","price":30.00,"description":"Un jugoso cuarto de pollo con chorizo, papas fritas especiales y doble ensalada.","image":"images/pollo especial.png","stock":10},
         {"id":7,"name":"Coca-Cola 2Litros","category":"sodas","price":15.00,"description":"La clásica e inconfundible gaseosa para acompañar tu comida.","image":"images/cocacola.png","stock":50},
         {"id":8,"name":"Fanta 2Litros","category":"sodas","price":15.00,"description":"Refrescante sabor a naranja que te encantará.","image":"images/fanta.png","stock":40},
         {"id":9,"name":"Sprite 2Litros","category":"sodas","price":15.00,"description":"El toque cítrico perfecto para tu paladar.","image":"images/sprite.png","stock":0},
@@ -22,10 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let cart = [];
     let pdfGenerator = null;
 
+    // ===================================================================
+    // 2. FUNCIÓN DE ARRANQUE Y MANEJO DE STOCK
+    // ===================================================================
+
+    // Inicia la aplicación verificando primero el estado de la sesión.
     function initApp() {
         setupLogin();
     }
     
+    // Carga los datos y configura las páginas una vez que el login es exitoso.
     function loadApp() {
         loadStockData();
         loadCartFromStorage();
@@ -33,15 +44,18 @@ document.addEventListener('DOMContentLoaded', () => {
         switchPage('inicio'); 
     }
     
+    // Carga el stock desde la memoria del navegador o desde la lista inicial si es la primera vez.
     function loadStockData() {
         const storedStock = localStorage.getItem('productStock');
-        if (storedStock) menuItems = JSON.parse(storedStock);
-        else {
+        if (storedStock) {
+            menuItems = JSON.parse(storedStock);
+        } else {
             menuItems = initialMenuItems;
             localStorage.setItem('productStock', JSON.stringify(menuItems));
         }
     }
 
+    // Llama a todas las funciones de configuración de la página.
     function setupAllPages() {
         setupNavigation();
         setupSuccessModal();
@@ -51,62 +65,103 @@ document.addEventListener('DOMContentLoaded', () => {
         setupReservationPage();
     }
 
-    const loadCartFromStorage = () => cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-    const saveCartToStorage = () => { localStorage.setItem('shoppingCart', JSON.stringify(cart)); updateCartCounter(); };
+    // ===================================================================
+    // 3. LÓGICA DEL CARRITO
+    // ===================================================================
 
+    // Carga el carrito desde la memoria del navegador.
+    const loadCartFromStorage = () => cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+    // Guarda el carrito en la memoria del navegador y actualiza el contador.
+    const saveCartToStorage = () => {
+        localStorage.setItem('shoppingCart', JSON.stringify(cart));
+        updateCartCounter();
+    };
+
+    // Añade un producto al carrito.
     const addToCart = (itemId) => {
         const itemInMenu = menuItems.find(i => i.id === itemId);
         const itemInCart = cart.find(i => i.id === itemId);
         const quantityInCart = itemInCart ? itemInCart.quantity : 0;
+
         if (quantityInCart >= itemInMenu.stock) return showNotification(`No hay más stock de ${itemInMenu.name}`, 'error');
-        if (itemInCart) itemInCart.quantity++; else cart.push({ ...itemInMenu, quantity: 1 });
+        
+        if (itemInCart) {
+            itemInCart.quantity++;
+        } else {
+            cart.push({ ...itemInMenu, quantity: 1 });
+        }
+        
         showNotification(`${itemInMenu.name} añadido al carrito!`);
         saveCartToStorage();
-        renderMenu();
+        renderMenu(); // Vuelve a dibujar el menú para actualizar el stock visual.
     };
 
+    // Actualiza la cantidad de un producto en el carrito.
     const updateCartQuantity = (itemId, newQuantity) => {
         const cartItem = cart.find(i => i.id === itemId);
         if (!cartItem) return;
+
         const itemInMenu = menuItems.find(i => i.id === itemId);
         if (newQuantity > itemInMenu.stock) newQuantity = itemInMenu.stock;
-        if (newQuantity <= 0) cart = cart.filter(i => i.id !== itemId); else cartItem.quantity = newQuantity;
+        
+        if (newQuantity <= 0) {
+            cart = cart.filter(i => i.id !== itemId);
+        } else {
+            cartItem.quantity = newQuantity;
+        }
+
         saveCartToStorage();
         renderCartPage();
         renderMenu();
     };
     
+    // Actualiza el número sobre el ícono del carrito.
     const updateCartCounter = () => {
         const counter = document.getElementById('cart-counter');
         if (counter) counter.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
     };
 
+    // Descuenta el stock de la memoria del navegador después de una compra.
     const updateStockAfterPurchase = () => {
         cart.forEach(cartItem => {
             const stockItem = menuItems.find(stockItem => stockItem.id === cartItem.id);
-            if (stockItem) stockItem.stock -= cartItem.quantity;
+            if (stockItem) {
+                stockItem.stock -= cartItem.quantity;
+            }
         });
         localStorage.setItem('productStock', JSON.stringify(menuItems));
     };
 
+    // ===================================================================
+    // 4. RENDERIZADO DE LA INTERFAZ (UI)
+    // ===================================================================
+
+    // Dibuja las tarjetas de productos en la página de menú.
     function renderMenu() {
         const menuGrid = document.getElementById('menu-grid');
         if (!menuGrid) return;
+
         const searchTerm = document.getElementById('search-input')?.value.toLowerCase() || '';
         const category = document.getElementById('category-filter')?.value || 'all';
         let itemsToRender = menuItems;
+
         if (category !== 'all') itemsToRender = itemsToRender.filter(item => item.category === category);
         if (searchTerm) itemsToRender = itemsToRender.filter(item => item.name.toLowerCase().includes(searchTerm));
+        
         menuGrid.innerHTML = '';
         if (itemsToRender.length === 0) menuGrid.innerHTML = '<p style="text-align: center;">No se encontraron productos.</p>';
+        
         itemsToRender.forEach(item => {
             const quantityInCart = cart.find(ci => ci.id === item.id)?.quantity || 0;
             const currentStock = item.stock - quantityInCart;
             let stockStatus, stockText;
+
             if (currentStock > 10) { stockStatus = 'available'; stockText = 'Disponible'; } 
             else if (currentStock > 5) { stockStatus = 'few-left'; stockText = `¡Quedan solo ${currentStock}!`; } 
             else if (currentStock > 0) { stockStatus = 'last-units'; stockText = `¡Últimas ${currentStock} unidades!`; } 
             else { stockStatus = 'not-available'; stockText = 'Agotado'; }
+            
             const card = document.createElement('div');
             card.className = 'card';
             card.innerHTML = `<img src="${item.image}" alt="${item.name}" class="card-img"><div class="card-body"><h3 class="card-title">${item.name}</h3><p class="card-text">${item.description}</p><div class="card-footer"><div><p class="price">Bs ${item.price.toFixed(2)}</p><span class="stock ${stockStatus}">${stockText}</span></div><button class="cta-button add-to-cart-btn" data-id="${item.id}" ${currentStock === 0 ? 'disabled' : ''}>Añadir</button></div></div>`;
@@ -114,11 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
+    // Dibuja los productos en la página de pedido.
     function renderCartPage() {
         const cartItemsList = document.getElementById('cart-items-list');
         if (!cartItemsList) return;
+
         const cartTotalPrice = document.getElementById('cart-total-price');
         cartItemsList.innerHTML = '';
+
         if (cart.length === 0) {
             cartItemsList.innerHTML = '<p>Tu carrito está vacío. <a href="#">¡Ve al menú!</a></p>';
             cartItemsList.querySelector('a').addEventListener('click', (e) => { e.preventDefault(); switchPage('menu'); });
@@ -126,8 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('checkout-btn').disabled = true;
             return;
         }
+
         document.getElementById('checkout-btn').disabled = false;
         let total = 0;
+
         cart.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'cart-item';
@@ -138,6 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
         cartTotalPrice.textContent = `Bs ${total.toFixed(2)}`;
     }
 
+    // ===================================================================
+    // 5. CONFIGURACIÓN DE PÁGINAS Y EVENTOS
+    // ===================================================================
+
+    // Configura los eventos para la página del menú.
     function setupMenuPage() {
         const menuPageContent = document.getElementById('menu-grid');
         if (!menuPageContent) return;
@@ -149,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Configura los eventos para la página de pedido.
     function setupCartPage() {
         const cartContainer = document.getElementById('cart-container');
         if (!cartContainer) return;
@@ -173,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCartPage();
     }
 
+    // Configura los eventos para la página de reservas.
     function setupReservationPage() {
         const reservationForm = document.getElementById('reservation-form');
         if (!reservationForm) return;
@@ -184,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Cambia entre las diferentes "páginas" (secciones).
     function switchPage(pageId) {
         document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
         document.getElementById(pageId)?.classList.add('active');
@@ -192,6 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Configura los eventos de la barra de navegación principal.
     function setupNavigation() {
         document.querySelector('.main-nav').addEventListener('click', (e) => {
             if (e.target.matches('.nav-link, .nav-link *')) {
@@ -209,6 +278,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
+    // Configura el sistema de login y sesión.
     function setupLogin() {
         const loginScreen = document.getElementById('login-screen');
         const appContainer = document.getElementById('app-container');
@@ -260,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Configura los eventos para el modal de éxito.
     function setupSuccessModal() {
         const successModal = document.getElementById('success-modal');
         const closeBtn = document.querySelector('#success-modal .modal-close');
@@ -271,6 +342,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Muestra el modal de éxito.
     function showSuccessModal(title, message, pdfGenFunc) {
         document.getElementById('success-modal-title').textContent = title;
         document.getElementById('success-modal-message').textContent = message;
@@ -281,43 +353,35 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // 6. GENERACIÓN DE PDF Y NOTIFICACIONES
     // ===================================================================
+
+    // Genera la factura de un pedido.
     function generateOrderPDF() {
         if (typeof window.jspdf === 'undefined') return showNotification("Error: Librería PDF no cargada.", "error");
         if (cart.length === 0) return showNotification("El carrito está vacío.", "error");
-        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
-        
         doc.setFontSize(22); doc.setFont('helvetica', 'bold');
         doc.text('Comprobante de Pedido - Pollos Rubén', 105, 20, { align: 'center' });
         doc.setFontSize(12); doc.setFont('helvetica', 'normal');
         doc.text(`Fecha: ${new Date().toLocaleDateString()}`, 20, 35);
         doc.text(`Cliente: ${user ? user.username : 'Invitado'}`, 20, 41);
-        
         const tableColumn = ["Producto", "Cantidad", "Precio Unit.", "Subtotal"];
-        const tableRows = []; 
-        let total = 0;
-        
+        const tableRows = []; let total = 0;
         cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             tableRows.push([item.name, item.quantity, `Bs ${item.price.toFixed(2)}`, `Bs ${itemTotal.toFixed(2)}`]);
             total += itemTotal;
         });
-        
         doc.autoTable({ head: [tableColumn], body: tableRows, startY: 50 });
         doc.setFontSize(14); doc.setFont('helvetica', 'bold');
         doc.text(`Total Pagado: Bs ${total.toFixed(2)}`, 190, doc.lastAutoTable.finalY + 15, { align: 'right' });
-
-        // --- MEJORA CLAVE: ABRIR EN LUGAR DE SOLO GUARDAR ---
+        
         try {
-            // Genera el PDF como una URL temporal en el navegador
             const pdfUrl = doc.output('bloburl');
-            // Abre esa URL en una nueva pestaña
             window.open(pdfUrl, '_blank');
             showNotification("Factura generada en una nueva pestaña.");
         } catch (e) {
-            console.error("Error al abrir el PDF:", e);
             showNotification("Error al mostrar la factura. Se descargará en su lugar.", "error");
             doc.save(`pedido-pollos-ruben-${Date.now()}.pdf`);
         }
@@ -329,13 +393,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderMenu();
     }
 
+    // Genera el comprobante de una reserva.
     function generateReservationPDF(data) {
         if (typeof window.jspdf === 'undefined') return showNotification("Error: Librería PDF no cargada.", "error");
-        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
-
         doc.setFontSize(22); doc.setFont('helvetica', 'bold');
         doc.text('Comprobante de Reserva - Pollos Rubén', 105, 20, { align: 'center' });
         doc.setFontSize(12); doc.setFont('helvetica', 'normal');
@@ -347,18 +410,17 @@ document.addEventListener('DOMContentLoaded', () => {
         doc.setFontSize(10);
         doc.text('Por favor, presenta este comprobante al llegar al restaurante.', 20, doc.lastAutoTable.finalY + 20);
         
-        // --- MEJORA CLAVE: ABRIR EN LUGAR DE SOLO GUARDAR ---
         try {
             const pdfUrl = doc.output('bloburl');
             window.open(pdfUrl, '_blank');
             showNotification("Reserva generada en una nueva pestaña.");
         } catch (e) {
-            console.error("Error al abrir el PDF:", e);
             showNotification("Error al mostrar la reserva. Se descargará en su lugar.", "error");
             doc.save(`reserva-pollos-ruben-${Date.now()}.pdf`);
         }
     }
 
+    // Muestra una notificación emergente.
     function showNotification(message, type = 'success') {
         const el = document.getElementById('notification');
         if (!el) return;
@@ -368,5 +430,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => el.classList.remove('show'), 3000);
     }
     
+    // ===================================================================
+    // 7. ARRANQUE INICIAL DE LA APLICACIÓN
+    // ===================================================================
     initApp();
+});
 });
