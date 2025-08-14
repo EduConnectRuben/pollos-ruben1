@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const initialMenuItems = [
-        {"id":1,"name":"Hamburguesa Simple","category":"hamburguesas","price":35.00,"description":"Carne jugosa, lechuga fresca, tomate y nuestras salsas clásicas.","image":"images/hamb simple png","stock":20},
+        {"id":1,"name":"Hamburguesa Simple","category":"hamburguesas","price":35.00,"description":"Carne jugosa, lechuga fresca, tomate y nuestras salsas clásicas.","image":"images/hamb_simple png","stock":20},
         {"id":2,"name":"Hamburguesa Doble","category":"hamburguesas","price":45.00,"description":"Doble porción de carne y queso para los verdaderos amantes de las burgers.","image":"images/hamb doble.png","stock":15},
         {"id":13,"name":"Hamburguesa Especial","category":"hamburguesas","price":55.00,"description":"Con tocino crujiente, aros de cebolla y nuestra salsa barbacoa secreta.","image":"images/hamb especial.png","stock":10},
         {"id":3,"name":"Lomito Simple","category":"lomitos","price":40.00,"description":"Tierno lomito de res a la plancha, con chimichurri, lechuga y tomate.","image":"images/lomito simple.png","stock":10},
