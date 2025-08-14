@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {"id":16,"name":"Pollo Especial","category":"pollos","price":45.00,"description":"Un jugoso cuarto de pollo con chorizo, papas fritas especiales y doble ensalada.","image":"images/polloespecial.png","stock":10},
         {"id":7,"name":"Coca-Cola 2Litros","category":"sodas","price":15.00,"description":"La clásica e inconfundible gaseosa para acompañar tu comida.","image":"images/cocacola.png","stock":50},
         {"id":8,"name":"Fanta 2Litros","category":"sodas","price":15.00,"description":"Refrescante sabor a naranja que te encantará.","image":"images/fanta.png","stock":40},
-        {"id":9,"name":"Sprite 2Litros","category":"sodas","price":15.00,"description":"El toque cítrico perfecto para tu paladar.","image":"images/sprite.png","stock":0},
+        {"id":9,"name":"Sprite 2Litros","category":"sodas","price":15.00,"description":"El toque cítrico perfecto para tu paladar.","image":"images/sprite.png","stock":10},
         {"id":10,"name":"Vaso de Limonada","category":"refrescos","price":3.00,"description":"Hecha con limones frescos, ideal para calmar la sed.","image":"images/limonada.png","stock":18},
         {"id":11,"name":"Vaso de Mocochinchi","category":"refrescos","price":3.00,"description":"Bebida tradicional a base de durazno deshidratado y canela.","image":"images/mocochinchi.png","stock":9},
         {"id":12,"name":"Vaso de Chicha","category":"refrescos","price":3.00,"description":"Clásico refresco hecho de maíz morado, piña y especias.","image":"images/chicha.png","stock":4}
